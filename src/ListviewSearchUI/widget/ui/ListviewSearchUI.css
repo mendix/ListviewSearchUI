@@ -1,0 +1,39 @@
+.listview-search-ui-extender {
+	position: relative;
+}
+
+.listview-search-ui-extender .toggle-search {
+
+}
+
+.listview-search-ui-extender .toggle-search .glyphicon {
+	margin-right:8px;
+}
+
+.listview-search-ui-extender .toggle-search.icon-btn .glyphicon {
+	margin-right:0;
+}
+
+.listview-search-ui-extender .toggle-search.active {
+
+}
+
+.listview-search-ui-extener .listview-search-container {
+	
+}
+
+.mx-listview-searchbar.listview-search-ui-extended {
+	-webkit-transition: 0.45s;
+	-moz-transition: 0.45s;
+	-o-transition: 0.45s;
+	transition: 0.45s;
+
+	max-height:100px;
+	overflow:hidden;
+}
+
+.mx-listview-searchbar.listview-search-ui-extended.hidden {
+	max-height:0;
+	display: block !important;
+    visibility: hidden !important;
+}

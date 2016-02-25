@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<widget id="ListviewSearchUI.widget.ListviewSearchUI" needsEntityContext="false" xmlns="http://www.mendix.com/widget/1.0/">
+    <name>ListviewSearchUI</name>
+    <description>Provides an extension of the searchfield of a listview: show/hide functionality as well as moving the searchfield to a different location.</description>
+
+    <icon>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAMxJREFUeNrEkeENgjAQRtsuAP8VdIRuoCPUDXADRmEDGaEjMAoSB8AJyldzTc7mIhoTveTlSgOv9DsdQlC86npr0TpwoK0raKfp5pVQmgvwcYk20qOndQN24CRKoiBRVZsWBODYXglmMPB3EybzxT+485OwntEGYKUrGGGvoBx4WZKsCvrUIXFRBDxlMK6GSEHG0C5KrjOu1L8UkGSPdgTp/o5Jn6chJSuBKTT5hB6HvytII833dLTSuDT9flAflFFflhjibwV/z2ARYACpPb6mjV0HUwAAAABJRU5ErkJggg==</icon>
+
+    <properties>
+        <property key="targetListviewName" type="string" defaultValue="" required="true">
+            <caption>Target listview</caption>
+            <category>General</category>
+            <description>Fill in the exact - unique - name of the listview</description>
+        </property>
+        <property key="widgetMode" type="enumeration" defaultValue="buttonMode">
+            <caption>Widget mode</caption>
+            <category>General</category>
+            <description>Button mode: show / hide the searchfield, Position mode: alter the searchfields location, Full mode: both functionalities</description>
+             <enumerationValues>
+                <enumerationValue key="buttonMode">Button mode</enumerationValue>
+                <enumerationValue key="positionMode">Position mode</enumerationValue>
+                <enumerationValue key="fullMode">Full mode</enumerationValue>
+            </enumerationValues>
+        </property>
+        <property key="searchHidden" type="boolean" defaultValue="false" required="true">
+            <caption>Hide search on start</caption>
+            <category>General</category>
+            <description>Hides the listviews searchfield on start</description>
+        </property>
+        <property key="buttonLabel" type="string" defaultValue="" required="false">
+            <caption>Button label</caption>
+            <category>General</category>
+            <description>Optional button label to use in the button</description>
+        </property>
+        <property key="buttonGlyphicon" type="string" defaultValue="" required="false">
+            <caption>Button icon</caption>
+            <category>General</category>
+            <description>Default the search glyphicon will be used. If a Bootstrap glyphicon icon is entered by classname the used glyphicon will be replaced by the new one. (e.g. 'glyphicon-user')</description>
+        </property>
+    </properties>
+</widget>
+
