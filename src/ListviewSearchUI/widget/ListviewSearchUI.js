@@ -4,15 +4,15 @@
     ========================
 
     @file      : ListviewSearchUI.js
-    @version   : 1.0.0
+    @version   : 1.1.0
     @author    : Willem Gorisse
-    @date      : 2/24/2016
+    @date      : 2/29/2016
     @copyright : Mendix 2016
     @license   : Apache 2
 
     Documentation
     ========================
-    Describe your widget here.
+    Provides an extension of the searchfield of a listview: show/hide functionality as well as moving the searchfield to a different location.
 */
 
 // Required module list. Remove unnecessary modules, you can always get them back from the boilerplate.
@@ -51,6 +51,7 @@ define([
         // Parameters configured in the Modeler.
         targetListviewName: "",
         widgetMode: "",
+        missingMode: "",
         searchHidden: false,
         buttonGlyphicon: "",
         buttonLabel: "",
@@ -261,17 +262,51 @@ define([
         // if no listview or listview search field could be found
         _disableWidget: function(){
             this._noSearchAvailable = true;
-            if (!dojoClass.contains(this.domNode,"hidden")) {
-                dojoClass.add(this.domNode,"hidden");
-            }
+            switch (this.missingMode) {
+                case "disabledMode":
+                    if (!dojoClass.contains(this.toggleButton,"disabled")) {
+                        dojoClass.add(this.toggleButton,"disabled");
+                    }
+                    if (dojoClass.contains(this.toggleButton,"active")) {
+                        dojoClass.remove(this.toggleButton,"active");
+                    }
+                    // events are already handled in the setup of the widget
+                    break;
+                case "hideMode":
+                default:
+                    if (!dojoClass.contains(this.domNode,"hidden")) {
+                        dojoClass.add(this.domNode,"hidden");
+                    }
+                   
+            }         
         },
 
-        // if for some reason it turns out that the disabled state is on whilst a listviewsearch widget is available
+        // if the disabled state is on whilst a listviewsearch widget is available
         _enableWidget: function() {
             this._noSearchAvailable = false;
-            if (dojoClass.contains(this.domNode,"hidden")) {
-                dojoClass.remove(this.domNode,"hidden");
-            }
+            
+            switch (this.missingMode) {
+                case "disabledMode":
+                    if (dojoClass.contains(this.toggleButton,"disabled")) {
+                        dojoClass.remove(this.toggleButton,"disabled");
+                    }
+                    // check if the button should have an active state
+                    if (!this.searchHidden) {
+                        if (!dojoClass.contains(this.toggleButton,"active")) {
+                            dojoClass.add(this.toggleButton,"active");
+                        }
+                    }
+                    // events are already handled in the setup of the widget
+                    break;
+                case "hideMode":
+                default:
+                    if (dojoClass.contains(this.domNode,"hidden")) {
+                        dojoClass.remove(this.domNode,"hidden");
+                    }
+            }        
+
+
+
         },
 
         _resetWidget:function() {

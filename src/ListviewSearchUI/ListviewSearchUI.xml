@@ -21,6 +21,15 @@
                 <enumerationValue key="fullMode">Full mode</enumerationValue>
             </enumerationValues>
         </property>
+        <property key="missingMode" type="enumeration" defaultValue="hideMode">
+            <caption>Missing search mode</caption>
+            <category>General</category>
+            <description>What to do when no searchfield or listview could be found. Disabled mode: sets the button to disabled, hideMode: hides the complete widget</description>
+             <enumerationValues>
+                <enumerationValue key="hideMode">Hide mode</enumerationValue>
+                <enumerationValue key="disabledMode">Disabled mode</enumerationValue>
+            </enumerationValues>
+        </property>
         <property key="searchHidden" type="boolean" defaultValue="false" required="true">
             <caption>Hide search on start</caption>
             <category>General</category>

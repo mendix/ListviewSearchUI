@@ -46,5 +46,9 @@ The widget was created in Mendix version 5.19 but it should work from 5.14.1 onw
 The latest Mendix version it was tested in is version 6.2 so Mendix 6 is compatible.
 
 ## Release Notes
+1.1 Github release:
+- added two missing modes for when no listview or searchfield exists. "disabled" or the older "hide"
+- added tabindex of -1 for the searchbutton to avoid focus on page load.
+
 1.0 Github release:
 - first version of the custom widget.
