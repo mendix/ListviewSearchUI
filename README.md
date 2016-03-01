@@ -41,11 +41,16 @@ The widget is designed for single listview usage per page. Meaning the widget, i
 
 Note that if a listview doesn't exist or doesn't have a searchbar due to e.g. microflow data source, the custom widget will get a Bootstrap "hidden" class and will not be visible.
 
+If the listview and custom widget are not in the same layoutcontainer, issues could arise with calculating heights of those layoutcontainer. These will lead to unwanted sizes of the layoutcontainer when opening and closing the searchpanel. The solution for this is to use absolute positioning for the searchfield use the extra classes on the listview to account for extra room.
+
 ## Compatibility
 The widget was created in Mendix version 5.19 but it should work from 5.14.1 onwards although untested.
 The latest Mendix version it was tested in is version 6.2 so Mendix 6 is compatible.
 
 ## Release Notes
+1.1.1 Github release:
+- added classes to listview for optional css layout fixes.
+
 1.1 Github release:
 - added two missing modes for when no listview or searchfield exists. "disabled" or the older "hide"
 - added tabindex of -1 for the searchbutton to avoid focus on page load.

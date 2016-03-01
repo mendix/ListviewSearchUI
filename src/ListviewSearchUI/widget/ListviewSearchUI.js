@@ -4,9 +4,9 @@
     ========================
 
     @file      : ListviewSearchUI.js
-    @version   : 1.1.0
+    @version   : 1.1.1
     @author    : Willem Gorisse
-    @date      : 2/29/2016
+    @date      : 1/3/2016
     @copyright : Mendix 2016
     @license   : Apache 2
 
@@ -46,6 +46,7 @@ define([
         toggleButton: null,
         listviewSearchContainer: null,
         targetListview: null,
+        targetListviewNode: null,
         targetSearchField: null,
 
         // Parameters configured in the Modeler.
@@ -99,7 +100,7 @@ define([
             
             // set the listener for page navigation due to OPR page reloading could mean 
             // the new widget is already present before the old one is removed
-            this._navigationListener = dojo.connect(mx.ui.getCurrentForm(), "onNavigation", dojoLang.hitch(this,this._onPageNavigation));            
+            this._navigationListener = dojo.connect(mx.ui.getCurrentForm(), "onNavigation", dojoLang.hitch(this,this._onPageNavigation));
         },
 
         // mxui.widget._WidgetBase.update is called when context is changed or initialized. Implement to re-render and / or fetch data.
@@ -116,15 +117,17 @@ define([
         // method called by onNavigation of the current page
         _onPageNavigation: function() {
             var name = ".mx-name-" + this.targetListviewName;
-            this.targetListview = dojoQuery(name)[0];
-            if (this.targetListview) {
-                this.targetSearchField = dojoQuery(".mx-listview-searchbar",this.targetListview)[0];
+            this.targetListviewNode = document.querySelector(name);
 
-                var dijitListview = dijit.byNode(this.targetListview);
-                dijitListview.addOnLoad(dojoLang.hitch(this,function(){
+            if (this.targetListviewNode) {
+                this.targetListview = dijit.byNode(this.targetListviewNode);
+				/* TODO: even verder */
+				this.targetSearchField = this.targetListviewNode.querySelector(".mx-listview-searchbar");
+
+                this.targetListview.addOnLoad(dojoLang.hitch(this,function(){
                     this._setup();
                 }))
-                dijitListview.addOnDestroy(dojoLang.hitch(this,function(){
+                 this.targetListview.addOnDestroy(dojoLang.hitch(this,function(){
                     this._resetWidget();
                 }))
             } else {
@@ -157,6 +160,11 @@ define([
         _updateRendering: function() {
             logger.debug(this.id + "._updateRendering");
             
+            // add a class to the listview as well for possible custom css layout solutions
+            if (!dojoClass.contains(this.targetListviewNode,"listview-search-ui-extended")) {
+                dojoClass.add(this.targetListviewNode,"listview-search-ui-extended");
+            }
+
             if (!dojoClass.contains(this.targetSearchField,"listview-search-ui-extended")) {
                 dojoClass.add(this.targetSearchField,"listview-search-ui-extended");
             }
@@ -218,6 +226,7 @@ define([
                 this._hideSearchField();
                 this.searchHidden = true;
             }
+            // in future we might need resize() method of a dijit element
         },
 
         _showSearchField: function() {
@@ -227,6 +236,10 @@ define([
             if (dojoClass.contains(this.targetSearchField,"hidden")) {
                 dojoClass.remove(this.targetSearchField, "hidden");
             }
+            // add a class to the listview as well for possible custom css layout solutions
+            if (dojoClass.contains(this.targetListviewNode,"listview-search-ui-extended-hidden")) {
+                dojoClass.remove(this.targetListviewNode,"listview-search-ui-extended-hidden");
+            }
         },
 
         _hideSearchField: function() {
@@ -235,6 +248,10 @@ define([
             }
             if (!dojoClass.contains(this.targetSearchField,"hidden")) {
                 dojoClass.add(this.targetSearchField, "hidden");
+            }
+            // add a class to the listview as well for possible custom css layout solutions
+            if (!dojoClass.contains(this.targetListviewNode,"listview-search-ui-extended-hidden")) {
+                dojoClass.add(this.targetListviewNode,"listview-search-ui-extended-hidden");
             }
         },
 

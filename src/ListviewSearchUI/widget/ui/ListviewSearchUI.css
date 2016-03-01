@@ -18,8 +18,16 @@
 
 }
 
-.listview-search-ui-extener .listview-search-container {
+.listview-search-ui-extender .listview-search-container {
 	
+}
+
+.mx-listview.listview-search-ui-extended {
+
+}
+
+.mx-listview.listview-search-ui-extended-hidden {
+
 }
 
 .mx-listview-searchbar.listview-search-ui-extended {
