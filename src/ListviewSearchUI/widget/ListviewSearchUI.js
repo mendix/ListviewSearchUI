@@ -97,10 +97,19 @@ define([
                     this._renderButton();
                     dojoConstruct.destroy(this.listviewSearchContainer);
             }
-            
-            // set the listener for page navigation due to OPR page reloading could mean 
+
+            // set the listener for page navigation due to OPR page reloading could mean
             // the new widget is already present before the old one is removed
-            this._navigationListener = dojo.connect(mx.ui.getCurrentForm(), "onNavigation", dojoLang.hitch(this,this._onPageNavigation));
+            var currentForm = null;
+            if (mx.router && mx.router.getContentForm) {
+                currentForm = mx.router.getContentForm();
+            } else if (mx.ui.getCurrentForm) {
+                currentForm = mx.ui.getCurrentForm();
+            }
+
+            if (currentForm) {
+                this._navigationListener = dojo.connect(currentForm, "onNavigation", dojoLang.hitch(this,this._onPageNavigation));
+            }
         },
 
         // mxui.widget._WidgetBase.update is called when context is changed or initialized. Implement to re-render and / or fetch data.
@@ -150,7 +159,7 @@ define([
                 if (this._noSearchAvailable) {
                     this._enableWidget();
                 }
-                this._updateRendering(); 
+                this._updateRendering();
             } else {
                 this._disableWidget();
             }
@@ -159,7 +168,7 @@ define([
         // Rerender the interface.
         _updateRendering: function() {
             logger.debug(this.id + "._updateRendering");
-            
+
             // add a class to the listview as well for possible custom css layout solutions
             if (!dojoClass.contains(this.targetListviewNode,"listview-search-ui-extended")) {
                 dojoClass.add(this.targetListviewNode,"listview-search-ui-extended");
@@ -168,7 +177,7 @@ define([
             if (!dojoClass.contains(this.targetSearchField,"listview-search-ui-extended")) {
                 dojoClass.add(this.targetSearchField,"listview-search-ui-extended");
             }
-           
+
             switch(this.widgetMode) {
                 case "positionMode":
                     this._moveSearchBar();
@@ -294,14 +303,14 @@ define([
                     if (!dojoClass.contains(this.domNode,"hidden")) {
                         dojoClass.add(this.domNode,"hidden");
                     }
-                   
-            }         
+
+            }
         },
 
         // if the disabled state is on whilst a listviewsearch widget is available
         _enableWidget: function() {
             this._noSearchAvailable = false;
-            
+
             switch (this.missingMode) {
                 case "disabledMode":
                     if (dojoClass.contains(this.toggleButton,"disabled")) {
@@ -320,7 +329,7 @@ define([
                     if (dojoClass.contains(this.domNode,"hidden")) {
                         dojoClass.remove(this.domNode,"hidden");
                     }
-            }        
+            }
 
 
 
@@ -333,14 +342,14 @@ define([
             if (this.targetSearchField && this.listviewSearchContainer) {
                 this.listviewSearchContainer.removeChild(this.targetSearchField);
             }
-            
+
             switch(this.widgetMode) {
                 case "positionMode":
-                    
+
                     break;
                 case "fullMode":
                     // put logic for positionMode in here as well...
-                    
+
                 case "buttonMode":
                 default:
                     this.searchHidden = this._startSearchHidden;
