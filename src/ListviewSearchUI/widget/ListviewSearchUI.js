@@ -100,16 +100,7 @@ define([
 
             // set the listener for page navigation due to OPR page reloading could mean
             // the new widget is already present before the old one is removed
-            var currentForm = null;
-            if (mx.router && mx.router.getContentForm) {
-                currentForm = mx.router.getContentForm();
-            } else if (mx.ui.getCurrentForm) {
-                currentForm = mx.ui.getCurrentForm();
-            }
-
-            if (currentForm) {
-                this._navigationListener = dojo.connect(currentForm, "onNavigation", dojoLang.hitch(this,this._onPageNavigation));
-            }
+            this._navigationListener = dojo.connect(this.mxform, "onNavigation", dojoLang.hitch(this,this._onPageNavigation));
         },
 
         // mxui.widget._WidgetBase.update is called when context is changed or initialized. Implement to re-render and / or fetch data.
